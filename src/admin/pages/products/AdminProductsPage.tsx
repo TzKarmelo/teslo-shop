@@ -1,7 +1,7 @@
-import { AdminTitle } from '@/admin/components/AdminTitle';
-import { CustomFullScreenLoading } from '@/components/custom/CustomFullScreenLoading';
-import { CustomPagination } from '@/components/custom/CustomPagination';
-import { Button } from '@/components/ui/button';
+import { AdminTitle } from "@/admin/components/AdminTitle";
+import { CustomFullScreenLoading } from "@/components/custom/CustomFullScreenLoading";
+import { CustomPagination } from "@/components/custom/CustomPagination";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableHeader,
@@ -9,11 +9,11 @@ import {
   TableHead,
   TableBody,
   TableCell,
-} from '@/components/ui/table';
-import { currencyFormatter } from '@/lib/currency-formatter';
-import { useProducts } from '@/shop/hooks/useProducts';
-import { PencilIcon, PlusIcon } from 'lucide-react';
-import { Link } from 'react-router';
+} from "@/components/ui/table";
+import { currencyFormatter } from "@/lib/currency-formatter";
+import { useProducts } from "@/shop/hooks/useProducts";
+import { PencilIcon, PlusIcon } from "lucide-react";
+import { Link } from "react-router";
 
 export const AdminProductsPage = () => {
   const { data, isLoading } = useProducts();
@@ -54,7 +54,7 @@ export const AdminProductsPage = () => {
         </TableHeader>
         <TableBody>
           {data!.products.map((product) => (
-            <TableRow>
+            <TableRow key={product.id}>
               <TableCell>
                 <img
                   src={product.images[0]}
@@ -76,7 +76,10 @@ export const AdminProductsPage = () => {
               <TableCell>{product.sizes}</TableCell>
               <TableCell className="text-right">
                 {/* <Link to={`t-shirt-teslo`}>Editar</Link> */}
-                <Link to={`/admin/products/${product.id}`}>
+                <Link
+                  to={`/admin/products/${product.id}`}
+                  className="hover:text-blue-500"
+                >
                   <PencilIcon className="w-4 h-4 text-blue-500" />
                 </Link>
               </TableCell>
