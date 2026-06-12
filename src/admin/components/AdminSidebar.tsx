@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation } from "react-router";
 import {
   Home,
   Users,
@@ -10,9 +10,9 @@ import {
   HelpCircle,
   ChevronLeft,
   ChevronRight,
-} from 'lucide-react';
-import { CustomLogo } from '@/components/custom/CustomLogo';
-import { useAuthStore } from '@/auth/store/auth.store';
+} from "lucide-react";
+import { CustomLogo } from "@/components/custom/CustomLogo";
+import { useAuthStore } from "@/auth/store/auth.store";
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -27,21 +27,19 @@ export const AdminSidebar: React.FC<SidebarProps> = ({
   const { user } = useAuthStore();
 
   const menuItems = [
-    { icon: Home, label: 'Dashboard', to: '/admin' },
-    { icon: BarChart3, label: 'Productos', to: '/admin/products' },
-    { icon: Users, label: 'Usuarios' },
-    { icon: ShoppingCart, label: 'Ordenes' },
-    { icon: FileText, label: 'Reportes' },
-    { icon: Bell, label: 'Notificaciones' },
-    { icon: Settings, label: 'Ajustes' },
-    { icon: HelpCircle, label: 'Ayuda' },
+    { icon: Home, label: "Dashboard", to: "/admin" },
+    { icon: BarChart3, label: "Productos", to: "/admin/products" },
+    { icon: Users, label: "Usuarios" },
+    { icon: ShoppingCart, label: "Ordenes" },
+    { icon: FileText, label: "Reportes" },
+    { icon: Bell, label: "Notificaciones" },
+    { icon: Settings, label: "Ajustes" },
+    { icon: HelpCircle, label: "Ayuda" },
   ];
-
-  console.log({ pathname });
 
   const isActiveRoute = (to: string) => {
     // TODO: ajustarlo cuando estemos en la pantalla de producto
-    if (pathname.includes('/admin/products/') && to === '/admin/products') {
+    if (pathname.includes("/admin/products/") && to === "/admin/products") {
       return true;
     }
 
@@ -51,7 +49,7 @@ export const AdminSidebar: React.FC<SidebarProps> = ({
   return (
     <div
       className={`bg-white border-r border-gray-200 transition-all duration-300 ease-in-out  ${
-        isCollapsed ? 'w-18' : 'w-64'
+        isCollapsed ? "w-18" : "w-64"
       } flex flex-col`}
     >
       {/* Header */}
@@ -73,11 +71,11 @@ export const AdminSidebar: React.FC<SidebarProps> = ({
             return (
               <li key={index}>
                 <Link
-                  to={item.to || '/admin'}
+                  to={item.to || "/admin"}
                   className={`flex items-center space-x-3 px-3 py-2 rounded-lg transition-all duration-200 group ${
-                    isActiveRoute(item.to || '/xxxx')
-                      ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    isActiveRoute(item.to || "/xxxx")
+                      ? "bg-blue-50 text-blue-600 border-r-2 border-blue-600"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   }`}
                 >
                   <Icon size={20} className="flex-shrink-0" />
