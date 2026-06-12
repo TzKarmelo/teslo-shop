@@ -1,16 +1,33 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { CustomLogo } from '@/components/custom/CustomLogo';
-import { Link } from 'react-router';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { CustomLogo } from "@/components/custom/CustomLogo";
+import { Link } from "react-router";
+import { useState } from "react";
+import { useAuthStore } from "../../store/auth.store";
 
 export const RegisterPage = () => {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const register = useAuthStore((state) => state.register);
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const ok = await register(fullName, email, password);
+
+    if (!ok) {
+      console.log("Error al registrar");
+    }
+  };
   return (
-    <div className={'flex flex-col gap-6'}>
+    <div className={"flex flex-col gap-6"}>
       <Card className="overflow-hidden p-0  ">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-8">
+          <form className="p-6 md:p-8" onSubmit={onSubmit}>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
                 <CustomLogo />
@@ -24,6 +41,8 @@ export const RegisterPage = () => {
                 <Input
                   id="fullName"
                   type="text"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                   placeholder="Nombre completo"
                   required
                 />
@@ -33,6 +52,8 @@ export const RegisterPage = () => {
                 <Label htmlFor="email">Correo</Label>
                 <Input
                   id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   type="email"
                   placeholder="mail@google.com"
                   required
@@ -50,6 +71,8 @@ export const RegisterPage = () => {
                 </div>
                 <Input
                   id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   required
                   placeholder="Contraseña"
@@ -93,7 +116,7 @@ export const RegisterPage = () => {
                 </Button>
               </div>
               <div className="text-center text-sm">
-                ¿Ya tienes cuenta?{' '}
+                ¿Ya tienes cuenta?{" "}
                 <Link to="/auth/login" className="underline underline-offset-4">
                   Ingresa ahora
                 </Link>
@@ -110,8 +133,8 @@ export const RegisterPage = () => {
         </CardContent>
       </Card>
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
-        Haciendo click, estás de acuerdo con{' '}
-        <a href="#">términos y condiciones</a> y{' '}
+        Haciendo click, estás de acuerdo con{" "}
+        <a href="#">términos y condiciones</a> y{" "}
         <a href="#">políticas de uso</a>.
       </div>
     </div>

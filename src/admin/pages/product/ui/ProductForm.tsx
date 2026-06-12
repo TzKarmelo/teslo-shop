@@ -317,6 +317,7 @@ export const ProductForm = ({
                     >
                       {size}
                       <button
+                        title="Eliminar"
                         onClick={() => removeSize(size)}
                         className="cursor-pointer ml-2 text-blue-600 hover:text-blue-800 transition-colors duration-200"
                       >
@@ -365,6 +366,7 @@ export const ProductForm = ({
                       <Tag className="h-3 w-3 mr-1" />
                       {tag}
                       <button
+                        title="Eliminar"
                         onClick={() => removeTag(tag)}
                         className="ml-2 text-green-600 hover:text-green-800 transition-colors duration-200"
                       >
@@ -417,6 +419,7 @@ export const ProductForm = ({
                 onDrop={handleDrop}
               >
                 <input
+                  title="Arrastra las imágenes aqui"
                   type="file"
                   multiple
                   accept="image/*"
@@ -454,7 +457,10 @@ export const ProductForm = ({
                           className="w-full h-full object-cover rounded-lg"
                         />
                       </div>
-                      <button className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      <button
+                        title="Eliminar"
+                        className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                      >
                         <X className="h-3 w-3" />
                       </button>
                       <p className="mt-1 text-xs text-slate-600 truncate">

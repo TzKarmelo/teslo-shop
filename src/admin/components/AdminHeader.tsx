@@ -1,18 +1,19 @@
-import React, { useRef, type KeyboardEvent } from 'react';
-import { useNavigate } from 'react-router';
-import { Search, Bell, MessageSquare, Settings } from 'lucide-react';
+import React, { useRef, type KeyboardEvent } from "react";
+import { useNavigate } from "react-router";
+import { Search, Bell, MessageSquare, Settings } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const AdminHeader: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
   const handleSearch = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key !== 'Enter') return;
+    if (event.key !== "Enter") return;
 
     const query = inputRef.current?.value;
 
     if (!query) {
-      navigate('/admin/products');
+      navigate("/admin/products");
       return;
     }
 
@@ -41,18 +42,18 @@ export const AdminHeader: React.FC = () => {
 
         {/* Actions */}
         <div className="flex items-center space-x-4">
-          <button className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+          <Button className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
             <Bell size={20} />
             <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
-          </button>
+          </Button>
 
-          <button className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+          <Button className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
             <MessageSquare size={20} />
-          </button>
+          </Button>
 
-          <button className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+          <Button className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
             <Settings size={20} />
-          </button>
+          </Button>
 
           <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm cursor-pointer hover:shadow-lg transition-shadow">
             JD

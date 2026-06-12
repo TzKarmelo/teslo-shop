@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import type { User } from '@/interfaces/user.interface';
 
 import { loginAction } from '../actions/login.action';
+import { registerAction } from '../actions/register.action';
 import { checkAuthAction } from '../actions/check-auth.action';
 
 type AuthStatus = 'authenticated' | 'not-authenticated' | 'checking';
@@ -18,6 +19,11 @@ type AuthState = {
   // Actions
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
+  register: (
+  fullName: string,
+  email: string,
+  password: string
+  ) => Promise<boolean>,
   checkAuthStatus: () => Promise<boolean>;
 };
 
@@ -56,6 +62,41 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
   logout: () => {
     localStorage.removeItem('token');
     set({ user: null, token: null, authStatus: 'not-authenticated' });
+  },
+
+  register: async (
+  fullName: string,
+  email: string,
+  password: string
+  ) => {
+    try {
+      const data = await registerAction(
+        fullName,
+        email,
+        password
+      );
+
+      localStorage.setItem('token', data.token);
+
+      set({
+        user: data.user,
+        token: data.token,
+        authStatus: 'authenticated',
+      });
+
+      return true;
+    } catch (error) {
+      localStorage.removeItem('token');
+      console.log(error);
+
+      set({
+        user: null,
+        token: null,
+        authStatus: 'not-authenticated',
+      });
+
+      return false;
+    }
   },
 
   checkAuthStatus: async () => {
