@@ -1,10 +1,10 @@
-import { tesloApi } from "@/api/tesloApi";
-import type { Product } from "@/interfaces/product.interface";
+import { tesloApi } from '@/api/tesloApi';
+import type { Product } from '@/interfaces/product.interface';
 
 export const getProductByIdAction = async (id: string): Promise<Product> => {
-  if (!id) throw new Error('No id provided');
-  
-  if (id==='new') {
+  if (!id) throw new Error('Id is required');
+
+  if (id === 'new') {
     return {
       id: 'new',
       title: '',
@@ -15,19 +15,19 @@ export const getProductByIdAction = async (id: string): Promise<Product> => {
       sizes: [],
       gender: 'men',
       tags: [],
-      images: []
+      images: [],
     } as unknown as Product;
-  }  
+  }
 
-  const { data } = await tesloApi.get<Product>(`/products/${id}`); 
-  
+  const { data } = await tesloApi.get<Product>(`/products/${id}`);
+
   const images = data.images.map((image) => {
-    if (image.includes('http')) {
-      return image;
-    } else {
-      return `${import.meta.env.VITE_API_URL}/files/product/${image}`;
-    }
+    if (image.includes('http')) return image;
+    return `${import.meta.env.VITE_API_URL}/files/product/${image}`;
   });
-  
-  return {...data, images};
+
+  return {
+    ...data,
+    images,
+  };
 };
